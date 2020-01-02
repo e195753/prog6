@@ -1,5 +1,6 @@
 package jp.ac.uryukyu.ie.e195753;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +11,7 @@ public class Main {
         System.out.println("入力してください:");
         return scanner.next();
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         GameManager GM = new GameManager(scanner);
     }
