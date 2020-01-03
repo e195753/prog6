@@ -24,27 +24,27 @@ public class GameManager {
                 "#   input  start   #\n" +
                 "#                  #\n" +
                 "####################\n");
-        /*
+
         while(true){
             String input = Main.getInput(scanner);
             if(input.equals("start")){
                 break;
             }
-        }*/
+        }
         while(true){
             init_map();
             while(!map.exit_check(player.getPos())){
                 map.print(player,enemys);
                 player.move(map,input_req());
             }
-            level++;
+            this.level = map.level + 1;
         }
     }
     public void init_map() throws IOException {
         if(level == 1){
             this.player = new Player();
         }
-        this.map_load();
+        map_load();
         player.setPos(map.getStart());
         turn = 1;
     }

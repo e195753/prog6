@@ -12,13 +12,30 @@ public class Map {
     char[][] raw_field;
     char[][] field;
     Map(int level) throws IOException {
+
         this.level = level;
         start = new int[2];
         exit = new int[2];
         size = new int[2];
-        File file = new File("src/main/lib/map" + level + ".txt");
-        FileReader filereader = new FileReader(file);
-        BufferedReader br = new BufferedReader(filereader);
+
+        System.out.println("level:"+level);
+        InputStream is = getClass().getResourceAsStream("/map" + this.level + ".txt");
+        BufferedReader br;
+        try{
+            br = new BufferedReader(new InputStreamReader(is));
+        }catch (NullPointerException e){
+            this.level = 1;
+            System.out.println("マップファイルが存在しないため最初のレベルを読み込みます");
+            is = getClass().getResourceAsStream("/map" + this.level + ".txt");
+            try{
+                br = new BufferedReader(new InputStreamReader(is));
+            }catch (NullPointerException e2){
+                System.out.println("map1.txtすら存在しないため終了します");
+                System.exit(-1);
+            }
+        }finally {
+            br = new BufferedReader(new InputStreamReader(is));
+        }
         String line;
         line = br.readLine();
         for(int i = 0;i<2;i++){
@@ -57,7 +74,7 @@ public class Map {
         return (pos[0] == exit[0]) & (pos[1] == exit[1]);
     }
     public void print(Player player ,Enemy[] ch){
-
+        Main.cls();
         for(int i=0;i<this.size[0];i++){
             if (this.size[1] >= 0) System.arraycopy(raw_field[i], 0, field[i], 0, this.size[1]);
         }
@@ -67,7 +84,6 @@ public class Map {
                 field[enemy.pos[0]][enemy.pos[1]] = enemy.type;
             }
         }
-        Main.cls();
         for(int i=0;i<this.size[0];i++){
             for(int j = 0;j<this.size[1];j++){
                 System.out.print(field[i][j]);

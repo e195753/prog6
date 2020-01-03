@@ -48,6 +48,9 @@ class Player extends Chara{
             case 'd':
                 pos_will[1]++;
                 break;
+            case ';':
+                System.out.println("終了します...");
+                System.exit(0);
             default:
                 System.out.println("入力された文字が違います");
                 return -1;
