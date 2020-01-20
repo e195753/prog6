@@ -25,6 +25,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        cls();
         Scanner scanner = new Scanner(System.in);
         GameManager GM = new GameManager(scanner);
         GM.play();
