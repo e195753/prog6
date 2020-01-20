@@ -9,8 +9,9 @@ public abstract class Chara {
     int hp;
     int mp;
     int level;
+    boolean move_check = true;
 
-    abstract int move(Map map,char angle);
+    abstract boolean move(Map map,char[] angles);
 
     public int[] getPos() {
         return pos;
@@ -31,33 +32,35 @@ class Player extends Chara{
         int[] pos  = new int[2];
     }
     @Override
-    int move(Map map,char angle) {
+    boolean move(Map map,char[] angles) {
         pos_will = Arrays.copyOf(pos,pos.length);
-        switch (angle){
-            case 'w':
-                pos_will[0]--;
-                break;
-            case 'a':
-                pos_will[1]--;
-                break;
-            case 's':
-                pos_will[0]++;
-                break;
-            case 'd':
-                pos_will[1]++;
-                break;
-            case ';':
-                System.out.println("終了します...");
-                System.exit(0);
-            default:
-                System.out.println("入力された文字が違います");
-                return -1;
+        for(char angle:angles){
+            switch (angle){
+                case 'w':
+                    pos_will[0]--;
+                    break;
+                case 'a':
+                    pos_will[1]--;
+                    break;
+                case 's':
+                    pos_will[0]++;
+                    break;
+                case 'd':
+                    pos_will[1]++;
+                    break;
+                case ';':
+                    System.out.println("終了します...");
+                    System.exit(0);
+                default:
+                    System.out.println("入力された文字が違います");
+                    move_check = false;
+            }
+            if(map.move_check(pos_will)){
+                this.pos = Arrays.copyOf(pos_will,pos_will.length);
+            }else{
+                move_check = false;
+            }
         }
-        if(map.move_check(pos_will)){
-            this.pos = Arrays.copyOf(pos_will,pos_will.length);
-            return 1;
-        }else{
-            return 0;
-        }
+        return move_check;
     }
 }

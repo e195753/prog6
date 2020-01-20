@@ -11,6 +11,7 @@ public class GameManager {
     Player player;
     Scanner scanner;
     Map map;
+
     Map printmap;
     GameManager(Scanner scanner) throws IOException {
         this.scanner = scanner;
@@ -35,11 +36,15 @@ public class GameManager {
     public void play() throws IOException {
         while(true){
             init_map();
-            while(!map.exit_check(player.getPos())){
-                map.print(player);
-                player.move(map,input_req());
+            map.print(player);
+            if(!player.move(map,input_req())){
+                gameover();
             }
-            this.level = map.level + 1;
+            if(!map.exit_check(player.getPos())){
+                gameover();
+            }else{
+                this.level = map.level + 1;
+            }
         }
     }
     public void init_map() throws IOException {
@@ -57,7 +62,18 @@ public class GameManager {
     public void map_load() throws IOException {
         map_load(this.level);
     }
-    public char input_req(){
-        return Main.getInput(scanner).charAt(0);
+    public char[] input_req(){
+        return Main.getInput(scanner).toCharArray();
+    }
+    public void gameover(){
+        System.out.println(
+                        "####################\n" +
+                        "#     report 6     #\n" +
+                        "#     e195753J     #\n" +
+                        "#                  #\n" +
+                        "#    GAME   OVER   #\n" +
+                        "#                  #\n" +
+                        "####################\n");
+        System.exit(0);
     }
 }
