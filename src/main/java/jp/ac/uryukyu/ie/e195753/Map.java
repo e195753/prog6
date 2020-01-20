@@ -115,19 +115,28 @@ public class Map {
 
 
     public boolean move_check(int[] pos){
-        if((raw_field[pos[0]][pos[1]] == '#' || raw_field[pos[0]][pos[1]] == ' ') || (raw_field[pos[0]][pos[1]] == '>' || raw_field[pos[0]][pos[1]] == '<')){
-            return raw_field[pos[0]][pos[1]] != '#';
-        }else{
-            if(warpers != null){
-                for(Warper warper:warpers){
-                    if(warper.alphabet == raw_field[pos[0]][pos[1]]){
-                        player.pos_will[0] = warper.warp_out.get(0);
-                        player.pos_will[1] = warper.warp_out.get(1);
-                        return true;
+        try{
+            if((raw_field[pos[0]][pos[1]] == '#' || raw_field[pos[0]][pos[1]] == ' ') || (raw_field[pos[0]][pos[1]] == '>' || raw_field[pos[0]][pos[1]] == '<')){
+                if(raw_field[pos[0]][pos[1]] == '#'){
+                    System.out.println("壁に衝突しました");
+                }
+                return raw_field[pos[0]][pos[1]] != '#';
+            }else{
+                if(warpers != null){
+                    for(Warper warper:warpers){
+                        if(warper.alphabet == raw_field[pos[0]][pos[1]]){
+                            player.pos_will[0] = warper.warp_out.get(0);
+                            player.pos_will[1] = warper.warp_out.get(1);
+                            return true;
+                        }
                     }
                 }
             }
-        }return false;
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("マップを超過しました");
+            return false;
+        }
+        return false;
     }
     public boolean exit_check(int[] pos){
         return (pos[0] == exit[0]) & (pos[1] == exit[1]);
