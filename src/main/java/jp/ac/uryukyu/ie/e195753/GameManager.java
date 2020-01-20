@@ -11,11 +11,10 @@ public class GameManager {
     Player player;
     Scanner scanner;
     Map map;
-
-    Map printmap;
-    GameManager(Scanner scanner) throws IOException {
+    GameManager(Scanner scanner) {
         this.scanner = scanner;
         level = 1;
+        this.player = new Player();
         System.out.println(
                 "####################\n" +
                 "#     report 6     #\n" +
@@ -30,33 +29,36 @@ public class GameManager {
             if(input.equals("start")){
                 break;
             }
+            if(input.equals("3")){
+                level = 3;
+                break;
+            }
         }
 
     }
     public void play() throws IOException {
         while(true){
             init_map();
-            map.print(player);
+            map.print();
             if(!player.move(map,input_req())){
                 gameover();
+                break;
             }
             if(!map.exit_check(player.getPos())){
                 gameover();
+                break;
             }else{
                 this.level = map.level + 1;
             }
         }
     }
     public void init_map() throws IOException {
-        if(level == 1){
-            this.player = new Player();
-        }
         map_load();
         player.setPos(map.getStart());
         turn = 1;
     }
     public void map_load(int level) throws IOException {
-        this.map = new Map(level);
+        this.map = new Map(level,player);
 
     }
     public void map_load() throws IOException {
