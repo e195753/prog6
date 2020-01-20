@@ -65,7 +65,6 @@ public class Map {
         exit = new int[2];
         size = new int[2];
 
-        System.out.println("level:"+level);
         InputStream is = getClass().getResourceAsStream("/map" + this.level + ".txt");
         BufferedReader br;
         try{
@@ -210,6 +209,7 @@ public class Map {
      */
     public void print(){
         Main.cls();
+        System.out.println("level:"+level);
         for(int i=0;i<this.size[0];i++){
             if (this.size[1] >= 0) System.arraycopy(raw_field[i], 0, field[i], 0, this.size[1]);
         }
