@@ -9,7 +9,6 @@ public class GameManager {
     int level;
     ArrayList<Chara> actList = new ArrayList<>();
     Player player;
-    Enemy[] enemys;
     Scanner scanner;
     Map map;
     Map printmap;
@@ -31,10 +30,13 @@ public class GameManager {
                 break;
             }
         }
+
+    }
+    public void play() throws IOException {
         while(true){
             init_map();
             while(!map.exit_check(player.getPos())){
-                map.print(player,enemys);
+                map.print(player);
                 player.move(map,input_req());
             }
             this.level = map.level + 1;

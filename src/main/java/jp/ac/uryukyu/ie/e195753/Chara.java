@@ -9,7 +9,6 @@ public abstract class Chara {
     int hp;
     int mp;
     int level;
-    Weapon weapon;
 
     abstract int move(Map map,char angle);
 
@@ -26,7 +25,6 @@ public abstract class Chara {
     }
 }
 class Player extends Chara{
-    Item[] inventory;
     Player(){
         level = 1;
         int[] pos_will  = new int[2];
@@ -62,19 +60,4 @@ class Player extends Chara{
             return 0;
         }
     }
-    void addInventory(Item item){
-
-    }
 }
-class Enemy extends Chara{
-    char type;
-    Enemy(){
-        level = 1;
-        type = 'e';
-    }
-    @Override
-    int move(Map map, char angle) {
-        return 0;
-    }
-}
-

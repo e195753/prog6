@@ -73,17 +73,12 @@ public class Map {
     public boolean exit_check(int[] pos){
         return (pos[0] == exit[0]) & (pos[1] == exit[1]);
     }
-    public void print(Player player ,Enemy[] ch){
+    public void print(Player player){
         Main.cls();
         for(int i=0;i<this.size[0];i++){
             if (this.size[1] >= 0) System.arraycopy(raw_field[i], 0, field[i], 0, this.size[1]);
         }
         field[player.pos[0]][player.pos[1]] = '@';
-        if(ch != null){
-            for(Enemy enemy:ch){
-                field[enemy.pos[0]][enemy.pos[1]] = enemy.type;
-            }
-        }
         for(int i=0;i<this.size[0];i++){
             for(int j = 0;j<this.size[1];j++){
                 System.out.print(field[i][j]);
